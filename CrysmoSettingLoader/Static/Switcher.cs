@@ -46,6 +46,7 @@ namespace CrysmoSettingLoader.Static
             state.Auth = true;
             //state.User.UpdateUser(user);
             //state.getSettings();
+            HttpService.setToken(Storage.getInstance().LocalSettings.Token);
             pageSwitcher.ShowMenu();
         }
         /*public static void UpdateDeviceList()

@@ -42,6 +42,10 @@ namespace CrysmoSettingLoader.Static
         {
             serverPath = server;
         }
+        public static void setToken(string token)
+        {
+            HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        }
 
         public static async Task<AuthResponseModel> login(LoginModel model)
         {
@@ -75,12 +79,10 @@ namespace CrysmoSettingLoader.Static
             }
         }
 
-        public static async Task DownloadAsync(string url, HttpContent content, string filename)
+        public static async Task<string> DownloadAsync(string url, string filename)
         {
             try {
-              //  var uri = new Uri(generatePdfsRetrieveUrl + pdfGuid + ".pdf");
-                var response = (await HttpClient.PostAsync(pathGenerator(url),content)).EnsureSuccessStatusCode();
-                //var content = await response.Content.ReadAsStringAsync();
+                var response = (await HttpClient.GetAsync(pathGenerator(url))).EnsureSuccessStatusCode();
                 if (File.Exists(filename)) {
                     File.Delete(filename);
                 }
@@ -90,11 +92,12 @@ namespace CrysmoSettingLoader.Static
                 {
                     await response.Content.CopyToAsync(fs);
                 }
+                return filename;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                //Switcher.addNotification(ex.Message);
+                return default;
             }
         }
     }    
