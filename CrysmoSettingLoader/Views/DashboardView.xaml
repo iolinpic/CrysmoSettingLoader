@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="CrysmoSettingLoader.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CrysmoSettingLoader.Views"
+             xmlns:converters="clr-namespace:CrysmoSettingLoader.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="1024" >
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Text="DashboardView"></TextBlock>
+    </Grid>
+</UserControl>
