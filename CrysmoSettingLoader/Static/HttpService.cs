@@ -22,6 +22,7 @@ namespace CrysmoSettingLoader.Static
     /// </summary>
     public class HttpService
     {
+
         private static readonly HttpClient HttpClient;
         private const string AUTH = @"/api/auth/login";
         private const string CURRENTUSER = @"/api/auth/user";
@@ -30,7 +31,9 @@ namespace CrysmoSettingLoader.Static
         //private static AuthResponseModel authData;
 
         static HttpService() {
-            HttpClient = new HttpClient();
+            var handler = new HttpClientHandler();
+            handler.MaxConnectionsPerServer = int.MaxValue;
+            HttpClient = new HttpClient(handler);
             serverPath = "https://crysmo.neksys.ru";
         }
 

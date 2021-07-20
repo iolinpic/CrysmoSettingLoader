@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO.Compression;
+using System.Threading;
 
 namespace CrysmoSettingLoader.ViewModels
 {
@@ -38,10 +39,13 @@ namespace CrysmoSettingLoader.ViewModels
         {
             get
             {
-                return downloadAllCommand ??= new RelayCommand((obj) => {
+                return downloadAllCommand ??= new RelayCommand(async(obj) => {
                     foreach(var category in Categories)
                     {
-                        DownloadCommand.Execute(category);
+                        await Task.Run(()=> {
+                            Thread.Sleep(500);
+                            DownloadCommand.Execute(category);
+                        });
                     }
                 });
             }
@@ -57,71 +61,57 @@ namespace CrysmoSettingLoader.ViewModels
                     if (category != null)
                     {
                         category.IsActivated = true;
+                        category.Progress = 0;
                         var archieveName = category.Subdir + ".zip";
                         archieveName =  await HttpService.DownloadAsync(category.RemotePath, archieveName);
-                        category.Progress = 50;
-                        //Switcher.addNotification("Архив конфигов " + category.Title + " скачан.");
-                        /*if (Directory.Exists(category.Subdir))
-                        {
-                            try
-                            {
-                                Directory.Delete(category.Subdir, true);
-                            }
-                            catch (Exception ex) {
-                                Console.WriteLine(ex.Message);
-                            }
-                            
-                        }*/
-                        
-
-
-
-
-                        var targetDir = ResultDir + @"\" + category.Subdir;
-                        DirectoryInfo dirInfo = new DirectoryInfo(category.Subdir);
-                        if (Directory.Exists(targetDir)) {
-                            try
-                            {
-                                Directory.Delete(targetDir, true);
-                                
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine(ex.Message);
-                            }
-                        }
-                        try
-                        {
-                            ZipFile.ExtractToDirectory(archieveName, targetDir);
-                            //Switcher.addNotification("Архив конфигов " + category.Title + " разорхивирован.");
+                        if (archieveName != null) {
                             var file = new FileInfo(archieveName);
+                            category.Progress = 50;
+
+                            var targetDir = ResultDir + @"\" + category.Subdir;
+                            DirectoryInfo dirInfo = new DirectoryInfo(category.Subdir);
+                            if (Directory.Exists(targetDir) && file.Exists)
+                            {
+                                try
+                                {
+                                    Directory.Delete(targetDir, true);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.Message);
+                                }
+                            }
+
+                            //Switcher.addNotification("Архив конфигов " + category.Title + " разорхивирован.");
                             if (file.Exists)
                             {
-                                file.Delete();
+                                try
+                                {
+                                    ZipFile.ExtractToDirectory(archieveName, targetDir);
+                                    file.Delete();
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.Message);
+                                }
+
+                            }
+                            else
+                            {
+                                Switcher.addNotification("Конфиги " + category.Title + " не смогли обновиться");
                             }
 
+
+                            category.Progress = 100;
+                            category.IsActivated = false;
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            Console.WriteLine(ex.Message);
+                            Switcher.addNotification("Конфиги " + category.Title + " не смогли обновиться");
+                            category.Progress = 0;
+                            category.IsActivated = false;
                         }
-
-                        /*                        if (dirInfo.Exists && Directory.Exists(targetDir) == false)
-                                                {
-                                                    try
-                                                    {
-                                                        dirInfo.MoveTo(ResultDir);
-                                                        //Switcher.addNotification("Архив конфигов " + category.Title + " перемещен в папку назначения.");
-                                                    }
-                                                    catch (Exception ex)
-                                                    {
-                                                        Console.WriteLine(ex.Message);
-                                                    }
-
-                                                }*/
-
-                        category.Progress = 100;
-                        category.IsActivated = false;
+                        
                     }
 
                 });
