@@ -76,6 +76,10 @@ namespace CrysmoSettingLoader.Static
             AppSettingsService appSettingsService = new AppSettingsService();
             Task<LocalSettings> task = Task.Run(() => appSettingsService.readSettings());
             LocalSettings = task.Result;
+            if(LocalSettings.Categories.Count == 0)
+            {
+                LocalSettings.initCategoryValues();
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

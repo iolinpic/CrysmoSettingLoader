@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CrysmoSettingLoader.Services;
 using System.IO;
+using CrysmoSettingLoader.Static;
 
 namespace CrysmoSettingLoader.Models
 {
@@ -20,6 +21,19 @@ namespace CrysmoSettingLoader.Models
         private string token;
         private string resultDir;
 
+        [JsonProperty("Categories")]
+        public List<Category> Categories { get; set; }
+        
+        
+        /*public List<Category> Categories{
+            get { return categories; }
+            set
+            {
+                categories = value;
+                OnPropertyChanged(nameof(Categories));
+            }
+        }*/
+
         [JsonProperty("Server")]
         public string Server
         {
@@ -31,6 +45,7 @@ namespace CrysmoSettingLoader.Models
                 saveChanges();
             }
         }
+
 
         [JsonProperty("ResultDir")]
         public string ResultDir
@@ -67,6 +82,7 @@ namespace CrysmoSettingLoader.Models
             }
         }
 
+
         private const string BASE = @"https://crysmo.neksys.ru";
 
        /* public void Update(LocalSettings localSettings)
@@ -85,6 +101,23 @@ namespace CrysmoSettingLoader.Models
             saved = false;
             token = "";
             resultDir = Directory.GetCurrentDirectory();
+            Categories = new List<Category>();
+            
+        }
+
+        public void initCategoryValues() {
+            Categories.Add(new Category { Title = "Состояния", RemotePath = "/api/conditions/generate", Subdir = "Conditions" });
+            Categories.Add(new Category { Title = "Способности", RemotePath = "/api/abilities/generate", Subdir = "Abilities" });
+            Categories.Add(new Category { Title = "NPC", RemotePath = "/api/actor/generate", Subdir = "NPC" });
+            Categories.Add(new Category { Title = "Диалоги", RemotePath = "/api/dialog/generate", Subdir = "Dialogs" });
+            Categories.Add(new Category { Title = "Карты", RemotePath = "/api/zone/generate", Subdir = "Map" });
+            Categories.Add(new Category { Title = "Комплекты способностей", RemotePath = "/api/pack/generate", Subdir = "AbilityPacks" });
+            Categories.Add(new Category { Title = "Сундуки", RemotePath = "/api/spack/generate", Subdir = "LootPacks" });
+            Categories.Add(new Category { Title = "Кризмы", RemotePath = "/api/crysm/generate", Subdir = "Crysms" });
+            Categories.Add(new Category { Title = "Предметы", RemotePath = "/api/item/generate", Subdir = "Items" });
+            Categories.Add(new Category { Title = "Квесты", RemotePath = "/api/quest/generate", Subdir = "Quests" });
+            saveChanges();
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CrysmoSettingLoader.Models
 {
-    class Category:Model
+    public class Category:Model
     {
         private string title;
         private string subdir;
@@ -19,7 +20,7 @@ namespace CrysmoSettingLoader.Models
             isActivated = false;
             progress = 0;
         }
-
+        [JsonIgnore]
         public bool IsActivated
         {
             get { return isActivated; }
@@ -34,11 +35,12 @@ namespace CrysmoSettingLoader.Models
                 OnPropertyChanged(nameof(IsActivatable));
             }
         }
+        [JsonIgnore]
         public bool IsActivatable
         {
             get { return !isActivated; }
         }
-
+        [JsonIgnore]
         public int Progress {
             get { return progress; }
             set

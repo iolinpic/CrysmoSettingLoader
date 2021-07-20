@@ -131,15 +131,21 @@ namespace CrysmoSettingLoader.ViewModels
         public DashboardViewModel()
         {
             Categories = new ObservableCollection<Category>();
-            Categories.Add(new Category {Title="Состояния",RemotePath= "/api/conditions/generate", Subdir="conditions" });
-            Categories.Add(new Category {Title="Способности",RemotePath= "/api/abilities/generate", Subdir= "abilities" });
-            Categories.Add(new Category {Title="NPC",RemotePath= "/api/actor/generate", Subdir= "actors" });
-            Categories.Add(new Category {Title="Диалоги",RemotePath= "/api/dialog/generate", Subdir= "dialogs" });
-            Categories.Add(new Category {Title="Карты",RemotePath= "/api/zone/generate", Subdir= "zones" });
-            Categories.Add(new Category {Title="Комплекты способностей",RemotePath= "/api/pack/generate", Subdir= "abilityPacks" });
-            Categories.Add(new Category {Title="Сундуки",RemotePath= "/api/spack/generate", Subdir= "storagePacks" });
-            Categories.Add(new Category {Title="Кризмы",RemotePath= "/api/crysm/generate", Subdir= "crysms" });
-            Categories.Add(new Category {Title="Предметы",RemotePath= "/api/item/generate", Subdir= "items" });
+            
+            foreach (var cat in Storage.getInstance().LocalSettings.Categories)
+            {
+                Categories.Add(cat);
+            }
+            /*Categories.Add(new Category {Title="Состояния",RemotePath= "/api/conditions/generate", Subdir="Conditions" });
+            Categories.Add(new Category {Title="Способности",RemotePath= "/api/abilities/generate", Subdir= "Abilities" });
+            Categories.Add(new Category {Title="NPC",RemotePath= "/api/actor/generate", Subdir= "NPC" });
+            Categories.Add(new Category {Title="Диалоги",RemotePath= "/api/dialog/generate", Subdir= "Dialogs" });
+            Categories.Add(new Category {Title="Карты",RemotePath= "/api/zone/generate", Subdir= "Map" });
+            Categories.Add(new Category {Title="Комплекты способностей",RemotePath= "/api/pack/generate", Subdir= "AbilityPacks" });
+            Categories.Add(new Category {Title="Сундуки",RemotePath= "/api/spack/generate", Subdir= "LootPacks" });
+            Categories.Add(new Category {Title="Кризмы",RemotePath= "/api/crysm/generate", Subdir= "Crysms" });
+            Categories.Add(new Category {Title="Предметы",RemotePath= "/api/item/generate", Subdir= "Items" });
+            Categories.Add(new Category {Title="Квесты",RemotePath= "/api/quest/generate", Subdir= "Quests" });*/
         }
     }
 }
