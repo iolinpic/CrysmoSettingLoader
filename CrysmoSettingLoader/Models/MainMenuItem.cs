@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-//using DFshareWPF.Interface;
-using System.Windows.Controls;
+﻿//using DFshareWPF.Interface;
 
 namespace CrysmoSettingLoader.Models
 {
@@ -26,34 +20,41 @@ namespace CrysmoSettingLoader.Models
         public int Order
         {
             get { return order; }
-            set { 
+            set
+            {
                 order = value;
                 OnPropertyChanged("Order");
             }
         }
 
-        public string Title {
+        public string Title
+        {
             get { return title; }
-            set {
+            set
+            {
                 title = value;
                 OnPropertyChanged("Title");
             }
         }
 
-        public string Address {
+        public string Address
+        {
             get { return address; }
-            set {
+            set
+            {
                 address = value;
                 OnPropertyChanged("Address");
             }
         }
 
-        public string Permission {
+        public string Permission
+        {
             get { return permission; }
-            set { permission = value;
+            set
+            {
+                permission = value;
                 OnPropertyChanged("Permission");
             }
         }
-          
     }
 }

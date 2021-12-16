@@ -1,14 +1,9 @@
 ﻿//using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace CrysmoSettingLoader.Models
 {
-    public class Category:Model
+    public class Category : Model
     {
         private string title;
         private string subdir;
@@ -21,6 +16,7 @@ namespace CrysmoSettingLoader.Models
             isActivated = false;
             progress = 0;
         }
+
         [JsonIgnore]
         public bool IsActivated
         {
@@ -36,13 +32,16 @@ namespace CrysmoSettingLoader.Models
                 OnPropertyChanged(nameof(IsActivatable));
             }
         }
+
         [JsonIgnore]
         public bool IsActivatable
         {
             get { return !isActivated; }
         }
+
         [JsonIgnore]
-        public int Progress {
+        public int Progress
+        {
             get { return progress; }
             set
             {
@@ -51,16 +50,16 @@ namespace CrysmoSettingLoader.Models
                 {
                     progress = 0;
                 }
-                if( value > 100)
+                if (value > 100)
                 {
                     progress = 100;
                 }
                 OnPropertyChanged(nameof(Progress));
-
             }
         }
 
-        public string Title {
+        public string Title
+        {
             get { return title; }
             set
             {
@@ -68,7 +67,9 @@ namespace CrysmoSettingLoader.Models
                 OnPropertyChanged(nameof(Title));
             }
         }
-        public string Subdir {
+
+        public string Subdir
+        {
             get { return subdir; }
             set
             {
@@ -76,7 +77,9 @@ namespace CrysmoSettingLoader.Models
                 OnPropertyChanged(nameof(Subdir));
             }
         }
-        public string RemotePath {
+
+        public string RemotePath
+        {
             get { return remotePath; }
             set
             {

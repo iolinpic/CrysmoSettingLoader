@@ -1,7 +1,7 @@
-﻿using System;
-using System.Windows.Controls;
-using CrysmoSettingLoader.Interface;
+﻿using CrysmoSettingLoader.Interface;
 using CrysmoSettingLoader.ViewModels;
+using System;
+using System.Windows.Controls;
 
 namespace CrysmoSettingLoader.Views
 {
@@ -11,6 +11,7 @@ namespace CrysmoSettingLoader.Views
     public partial class LoginVeiw : UserControl, ISwitchable
     {
         private LoginViewModel viewModel;
+
         //private bool isLoggedIn;
         public LoginVeiw()
         {
@@ -26,7 +27,6 @@ namespace CrysmoSettingLoader.Views
 
         void ISwitchable.BeforeSwitch()
         {
-
         }
     }
 }

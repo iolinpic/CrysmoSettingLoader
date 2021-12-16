@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 using System.Windows;
 using System.Windows.Data;
 
 namespace CrysmoSettingLoader.Converters
 {
     /// <summary>
-    /// converter of bool value to Visibility 
+    /// converter of bool value to Visibility
     /// </summary>
     public class BoolToVisibility : IValueConverter
     {
@@ -21,7 +19,6 @@ namespace CrysmoSettingLoader.Converters
             }
             return Visibility.Collapsed;
         }
-
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {

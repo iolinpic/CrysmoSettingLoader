@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace CrysmoSettingLoader.Models
 {
@@ -12,6 +9,7 @@ namespace CrysmoSettingLoader.Models
     public class Model : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)

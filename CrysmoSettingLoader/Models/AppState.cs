@@ -1,10 +1,4 @@
 ﻿//using DFshareWPF.Static;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace CrysmoSettingLoader.Models
 {
@@ -13,11 +7,14 @@ namespace CrysmoSettingLoader.Models
     /// </summary>
     public class AppState : Model
     {
-        private bool _auth;       
+        private bool _auth;
         private CurrentUserModel _user;
-        public CurrentUserModel User { 
-            get { return _user; } 
-            set {
+
+        public CurrentUserModel User
+        {
+            get { return _user; }
+            set
+            {
                 _user = value;
                 OnPropertyChanged("User");
             }
@@ -29,7 +26,8 @@ namespace CrysmoSettingLoader.Models
             Auth = false;
         }
 
-        public void resetDefault() {
+        public void resetDefault()
+        {
             User = new CurrentUserModel();
             Auth = false;
         }

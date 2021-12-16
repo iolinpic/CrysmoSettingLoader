@@ -1,14 +1,10 @@
 ﻿//using DFshareWPF.Services;
 //using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Printing;
-using System.Text.Json;
-using System.Threading.Tasks;
 using CrysmoSettingLoader.Services;
+using System.Collections.Generic;
 using System.IO;
-using CrysmoSettingLoader.Static;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace CrysmoSettingLoader.Models
 {
@@ -24,8 +20,7 @@ namespace CrysmoSettingLoader.Models
 
         [JsonPropertyName("Categories")]
         public List<Category> Categories { get; set; }
-        
-        
+
         /*public List<Category> Categories{
             get { return categories; }
             set
@@ -46,7 +41,6 @@ namespace CrysmoSettingLoader.Models
                 saveChanges();
             }
         }
-
 
         [JsonPropertyName("ResultDir")]
         public string ResultDir
@@ -71,6 +65,7 @@ namespace CrysmoSettingLoader.Models
                 saveChanges();
             }
         }
+
         [JsonPropertyName("Saved")]
         public bool Saved
         {
@@ -83,16 +78,16 @@ namespace CrysmoSettingLoader.Models
             }
         }
 
-
         private const string BASE = @"https://crysmo.neksys.ru";
 
-       /* public void Update(LocalSettings localSettings)
-        {
-            Printer = localSettings.Printer;
-            Server = localSettings.Server;
-        }*/
+        /* public void Update(LocalSettings localSettings)
+         {
+             Printer = localSettings.Printer;
+             Server = localSettings.Server;
+         }*/
 
-        private void saveChanges() {
+        private void saveChanges()
+        {
             Task.Run(() => AppSettingsService.writeSettings(this));
         }
 
@@ -103,10 +98,10 @@ namespace CrysmoSettingLoader.Models
             token = "";
             resultDir = Directory.GetCurrentDirectory();
             Categories = new List<Category>();
-            
         }
 
-        public void initCategoryValues() {
+        public void initCategoryValues()
+        {
             Categories.Add(new Category { Title = "Состояния", RemotePath = "/api/conditions/generate", Subdir = "Conditions" });
             Categories.Add(new Category { Title = "Способности", RemotePath = "/api/abilities/generate", Subdir = "Abilities" });
             Categories.Add(new Category { Title = "NPC", RemotePath = "/api/actor/generate", Subdir = "NPC" });
@@ -118,7 +113,6 @@ namespace CrysmoSettingLoader.Models
             Categories.Add(new Category { Title = "Предметы", RemotePath = "/api/item/generate", Subdir = "Items" });
             Categories.Add(new Category { Title = "Квесты", RemotePath = "/api/quest/generate", Subdir = "Quests" });
             saveChanges();
-
         }
     }
 }

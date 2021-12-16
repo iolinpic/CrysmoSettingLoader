@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿//using Newtonsoft.Json;
+using CrysmoSettingLoader.Models;
+using System;
 using System.IO;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-//using Newtonsoft.Json;
-using System.Collections.ObjectModel;
-using System.Printing;
-using System.Net.WebSockets;
-using System.Threading;
-using CrysmoSettingLoader.Models;
 using System.Net.Http.Json;
-using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace CrysmoSettingLoader.Static
 {
@@ -22,13 +14,13 @@ namespace CrysmoSettingLoader.Static
     /// </summary>
     public class HttpService
     {
-
         private static readonly HttpClient HttpClient;
         private const string AUTH = @"/api/auth/login";
         private const string CURRENTUSER = @"/api/auth/user";
         public static string serverPath;
 
-        static HttpService() {
+        static HttpService()
+        {
             var handler = new HttpClientHandler();
             handler.MaxConnectionsPerServer = int.MaxValue;
             HttpClient = new HttpClient(handler);
@@ -39,10 +31,12 @@ namespace CrysmoSettingLoader.Static
         {
             return serverPath + path;
         }
+
         public static void UpdateBase(string server)
         {
             serverPath = server;
         }
+
         public static void setToken(string token)
         {
             HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -50,7 +44,8 @@ namespace CrysmoSettingLoader.Static
 
         public static async Task<AuthResponseModel> login(LoginModel model)
         {
-            try {
+            try
+            {
                 var resp = await HttpClient.PostAsJsonAsync(pathGenerator(AUTH), model);
                 resp.EnsureSuccessStatusCode();
                 var authData = await resp.Content.ReadFromJsonAsync<AuthResponseModel>();
@@ -69,12 +64,14 @@ namespace CrysmoSettingLoader.Static
                 return default;
             }
         }
-         public async static Task<CurrentUserModel> getCurrentUser() {
+
+        public static async Task<CurrentUserModel> getCurrentUser()
+        {
             try
             {
                 return await HttpClient.GetFromJsonAsync<CurrentUserModel>(pathGenerator(CURRENTUSER));
             }
-            catch 
+            catch
             {
                 return default;
             }
@@ -82,9 +79,11 @@ namespace CrysmoSettingLoader.Static
 
         public static async Task<string> DownloadAsync(string url, string filename)
         {
-            try {
+            try
+            {
                 var response = (await HttpClient.GetAsync(pathGenerator(url))).EnsureSuccessStatusCode();
-                if (File.Exists(filename)) {
+                if (File.Exists(filename))
+                {
                     File.Delete(filename);
                 }
                 using (var fs = new FileStream(
@@ -101,5 +100,5 @@ namespace CrysmoSettingLoader.Static
                 return default;
             }
         }
-    }    
+    }
 }

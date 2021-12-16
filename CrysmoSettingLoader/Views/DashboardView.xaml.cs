@@ -1,21 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using CrysmoSettingLoader.Interface;
-using CrysmoSettingLoader.Static;
+﻿using CrysmoSettingLoader.Interface;
 using CrysmoSettingLoader.ViewModels;
-using System.Globalization;
-using System.Net.WebSockets;
-using System.Threading.Tasks;
+using System;
+using System.Windows.Controls;
 
 namespace CrysmoSettingLoader.Views
 {
@@ -25,6 +11,7 @@ namespace CrysmoSettingLoader.Views
     public partial class DashboardView : UserControl, ISwitchable
     {
         private DashboardViewModel dashboardViewModel;
+
         public DashboardView()
         {
             InitializeComponent();
@@ -42,21 +29,21 @@ namespace CrysmoSettingLoader.Views
             //this.DataContext = mod;
         }
 
-        
-/*        private void loadEventFieldData()
-        {
-            //EventValuesViewModel.GetFields(HttpService.GetEventFields());
-            EventValuesViewModel.GetFields(Storage.getInstance().EventFields);
-            EventValuesViewModel.GetEvent(HttpService.GetEvent());
-            //load field settings and default values
-        }*/
+        /*        private void loadEventFieldData()
+                {
+                    //EventValuesViewModel.GetFields(HttpService.GetEventFields());
+                    EventValuesViewModel.GetFields(Storage.getInstance().EventFields);
+                    EventValuesViewModel.GetEvent(HttpService.GetEvent());
+                    //load field settings and default values
+                }*/
 
         public void UtilizeState(object state)
         {
             throw new NotImplementedException();
         }
 
-        public void BeforeSwitch() { 
+        public void BeforeSwitch()
+        {
         }
     }
 
@@ -65,7 +52,6 @@ namespace CrysmoSettingLoader.Views
         public DataTemplate StringDataTemplate { get; set; }
         public DataTemplate LogicDataTemplate { get; set; }
         public DataTemplate ImageDataTemplate { get; set; }
-        
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
@@ -77,11 +63,12 @@ namespace CrysmoSettingLoader.Views
                 {
                     case "text":
                         return StringDataTemplate;
+
                     case "logic":
                         return LogicDataTemplate;
+
                     case "image":
                         return ImageDataTemplate;
-                    
                 }
             }
             return base.SelectTemplate(item, container);
@@ -105,7 +92,6 @@ namespace CrysmoSettingLoader.Views
             return Visibility.Collapsed;
         }
 
-      
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();

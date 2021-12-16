@@ -2,27 +2,23 @@
 using CrysmoSettingLoader.Models;
 using CrysmoSettingLoader.Static;
 using CrysmoSettingLoader.Views;
-using System;
-using System.Collections.Generic;
-using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CrysmoSettingLoader.ViewModels
 {
     /// <summary>
     /// View model for LoginView
     /// </summary>
-    class LoginViewModel : ViewModel
+    internal class LoginViewModel : ViewModel
     {
         private bool isLoggingIn;
         private string login;
-        
+
         private string message;
         private RelayCommand loginCommand;
         //private RelayCommand settingsCommand;
-        
-        public LoginViewModel() {
+
+        public LoginViewModel()
+        {
             isLoggingIn = false;
         }
 
@@ -45,6 +41,7 @@ namespace CrysmoSettingLoader.ViewModels
                 OnPropertyChanged(nameof(IsLoggingIn));
             }
         }
+
         public string Login
         {
             get { return login; }
@@ -54,6 +51,7 @@ namespace CrysmoSettingLoader.ViewModels
                 OnPropertyChanged(nameof(Login));
             }
         }
+
         public string Message
         {
             get { return message; }
@@ -64,11 +62,15 @@ namespace CrysmoSettingLoader.ViewModels
             }
         }
 
-        public RelayCommand LoginCommand {
-            get {
-                return loginCommand ??= new RelayCommand(async (obj)=> {
+        public RelayCommand LoginCommand
+        {
+            get
+            {
+                return loginCommand ??= new RelayCommand(async (obj) =>
+                {
                     var pbox = obj as System.Windows.Controls.PasswordBox;
-                    if (Login != null && pbox.Password != null) {
+                    if (Login != null && pbox.Password != null)
+                    {
                         Message = "Выполняеться проверка";
                         IsLoggingIn = true;
                         //var res = await HttpService.auth(Login, pbox.Password);
@@ -90,7 +92,8 @@ namespace CrysmoSettingLoader.ViewModels
                             //HttpService.getCurrentUser()
                             Switcher.Switch(new DashboardView());
                         }
-                        else {
+                        else
+                        {
                             Switcher.addNotification("Введенные данные не верны");
                             IsLoggingIn = false;
                         }

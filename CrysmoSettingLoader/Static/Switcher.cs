@@ -1,25 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CrysmoSettingLoader.Models;
 using System.Windows.Controls;
-using CrysmoSettingLoader.Models;
-using CrysmoSettingLoader.ViewModels;
-using CrysmoSettingLoader.Views;
-using CrysmoSettingLoader.Static;
 
 namespace CrysmoSettingLoader.Static
-{   
+{
     /// <summary>
     /// Class used for coodinating window navigation (switch of user components)
     /// </summary>
     public static class Switcher
     {
         public static MainWindow pageSwitcher;
-        public static AppState state { 
-            get {
+
+        public static AppState state
+        {
+            get
+            {
                 return Storage.getInstance().State;
-            } 
+            }
         }
+
         public static LocalSettings LocalSettings
         {
             get
@@ -28,19 +26,24 @@ namespace CrysmoSettingLoader.Static
             }
         }
 
-        public static void Switch(UserControl newPage) {
+        public static void Switch(UserControl newPage)
+        {
             pageSwitcher.Navigate(newPage);
         }
-        public static void Switch(UserControl newPage, object state) {
+
+        public static void Switch(UserControl newPage, object state)
+        {
             pageSwitcher.Navigate(newPage, state);
         }
 
-        public static void Authentificate(CurrentUserModel user) {
+        public static void Authentificate(CurrentUserModel user)
+        {
             state.Auth = true;
             state.User.UpdateUser(user);
             //state.getSettings();
             pageSwitcher.ShowMenu();
         }
+
         public static void Authentificate()
         {
             state.Auth = true;
@@ -48,9 +51,9 @@ namespace CrysmoSettingLoader.Static
             pageSwitcher.ShowMenu();
         }
 
-        public static void addNotification(string message) {
+        public static void addNotification(string message)
+        {
             pageSwitcher.createNotification(message);
         }
     }
-    
 }

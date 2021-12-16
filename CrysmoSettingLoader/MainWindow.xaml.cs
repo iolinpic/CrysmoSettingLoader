@@ -1,22 +1,10 @@
 ﻿using CrysmoSettingLoader.Interface;
-using CrysmoSettingLoader.Models;
 using CrysmoSettingLoader.Static;
 using CrysmoSettingLoader.ViewModels;
 using CrysmoSettingLoader.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CrysmoSettingLoader
 {
@@ -26,6 +14,7 @@ namespace CrysmoSettingLoader
     public partial class MainWindow : Window
     {
         private MainViewModel viewModel;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -33,7 +22,8 @@ namespace CrysmoSettingLoader
             Switcher.pageSwitcher = this;
             viewModel = new MainViewModel();
             DataContext = viewModel;
-            if (Storage.getInstance().LocalSettings.Saved && Storage.getInstance().LocalSettings.Token != "") {
+            if (Storage.getInstance().LocalSettings.Saved && Storage.getInstance().LocalSettings.Token != "")
+            {
                 //var utask = Task.Run( async () =>  await HttpService.getCurrentUser());
                 Switcher.Authentificate();
                 Switcher.Switch(new DashboardView());
@@ -42,7 +32,6 @@ namespace CrysmoSettingLoader
             {
                 Switcher.Switch(new LoginVeiw());
             }
-            
         }
 
         public void Navigate(UserControl nextPage)
@@ -77,7 +66,6 @@ namespace CrysmoSettingLoader
         {
             viewModel.GenerateMenuByPermissions();
         }
-
 
         public void createNotification(string notification)
         {

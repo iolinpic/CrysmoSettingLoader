@@ -2,30 +2,27 @@
 using CrysmoSettingLoader.Models;
 using CrysmoSettingLoader.Static;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO.Compression;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace CrysmoSettingLoader.ViewModels
 {
-    class DashboardViewModel : ViewModel
+    internal class DashboardViewModel : ViewModel
     {
-        
         private RelayCommand downloadCommand;
         private RelayCommand downloadAllCommand;
         public ObservableCollection<Category> Categories { get; set; }
-        
+
         public string ResultDir
         {
             get { return Storage.getInstance().LocalSettings.ResultDir; }
             set
             {
-                if (Directory.Exists(value)) {
+                if (Directory.Exists(value))
+                {
                     Storage.getInstance().LocalSettings.ResultDir = value;
                     OnPropertyChanged(nameof(ResultDir));
                 }
@@ -35,14 +32,17 @@ namespace CrysmoSettingLoader.ViewModels
                 }
             }
         }
+
         public RelayCommand DownloadAllCommand
         {
             get
             {
-                return downloadAllCommand ??= new RelayCommand(async(obj) => {
-                    foreach(var category in Categories)
+                return downloadAllCommand ??= new RelayCommand(async (obj) =>
+                {
+                    foreach (var category in Categories)
                     {
-                        await Task.Run(()=> {
+                        await Task.Run(() =>
+                        {
                             Thread.Sleep(500);
                             DownloadCommand.Execute(category);
                         });
@@ -63,8 +63,9 @@ namespace CrysmoSettingLoader.ViewModels
                         category.IsActivated = true;
                         category.Progress = 0;
                         var archieveName = category.Subdir + ".zip";
-                        archieveName =  await HttpService.DownloadAsync(category.RemotePath, archieveName);
-                        if (archieveName != null) {
+                        archieveName = await HttpService.DownloadAsync(category.RemotePath, archieveName);
+                        if (archieveName != null)
+                        {
                             var file = new FileInfo(archieveName);
                             category.Progress = 50;
 
@@ -94,13 +95,11 @@ namespace CrysmoSettingLoader.ViewModels
                                 {
                                     Console.WriteLine(ex.Message);
                                 }
-
                             }
                             else
                             {
                                 Switcher.addNotification("Конфиги " + category.Title + " не смогли обновиться");
                             }
-
 
                             category.Progress = 100;
                             category.IsActivated = false;
@@ -111,9 +110,7 @@ namespace CrysmoSettingLoader.ViewModels
                             category.Progress = 0;
                             category.IsActivated = false;
                         }
-                        
                     }
-
                 });
             }
         }
@@ -121,7 +118,7 @@ namespace CrysmoSettingLoader.ViewModels
         public DashboardViewModel()
         {
             Categories = new ObservableCollection<Category>();
-            
+
             foreach (var cat in Storage.getInstance().LocalSettings.Categories)
             {
                 Categories.Add(cat);

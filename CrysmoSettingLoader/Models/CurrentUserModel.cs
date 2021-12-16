@@ -1,8 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace CrysmoSettingLoader.Models
 {
@@ -14,7 +10,7 @@ namespace CrysmoSettingLoader.Models
         private string id;
         private string name;
         private string email;
-       /* public PermissionModel[] permissions { get; set; }*/
+        /* public PermissionModel[] permissions { get; set; }*/
 
         public CurrentUserModel()
         {
@@ -23,7 +19,9 @@ namespace CrysmoSettingLoader.Models
             id = "";
             /*permissions = new PermissionModel[0];*/
         }
-        public void UpdateUser(CurrentUserModel user) {
+
+        public void UpdateUser(CurrentUserModel user)
+        {
             Name = user.Name;
             Email = user.Email;
             Id = user.Id;
@@ -40,6 +38,7 @@ namespace CrysmoSettingLoader.Models
                 OnPropertyChanged("Id");
             }
         }
+
         [JsonPropertyName("name")]
         public string Name
         {
@@ -50,14 +49,16 @@ namespace CrysmoSettingLoader.Models
                 OnPropertyChanged("Name");
             }
         }
+
         [JsonPropertyName("email")]
-        public string Email {
+        public string Email
+        {
             get { return email; }
-            set {
+            set
+            {
                 email = value;
                 OnPropertyChanged("Email");
-            } }
-
-        
+            }
+        }
     }
 }

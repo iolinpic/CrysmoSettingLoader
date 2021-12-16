@@ -1,11 +1,9 @@
 ﻿using CrysmoSettingLoader.Models;
+
 //using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using System.Threading.Tasks;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace CrysmoSettingLoader.Services
 {
@@ -16,11 +14,13 @@ namespace CrysmoSettingLoader.Services
     {
         private const string FILENAME = @"settings.json";
 
-        public AppSettingsService() {
+        public AppSettingsService()
+        {
             SettingsFileExistsOrCreate();
         }
 
-        private void SettingsFileExistsOrCreate() {
+        private void SettingsFileExistsOrCreate()
+        {
             FileInfo fileInfo = new FileInfo(FILENAME);
             if (!fileInfo.Exists)
             {
@@ -52,6 +52,7 @@ namespace CrysmoSettingLoader.Services
                 }
             }
         }
+
         public static async Task writeSettings(LocalSettings localSettings)
         {
             using (FileStream sw = new FileStream(FILENAME, FileMode.OpenOrCreate))
@@ -59,7 +60,7 @@ namespace CrysmoSettingLoader.Services
                 /*var json = JsonConvert.SerializeObject(localSettings);
                 await sw.WriteLineAsync(json);*/
                 //sw.Close();
-                await JsonSerializer.SerializeAsync<LocalSettings>(sw,localSettings);
+                await JsonSerializer.SerializeAsync<LocalSettings>(sw, localSettings);
                 /*JsonSerializer.Serialize(sw, localSettings,LocalSettings);*/
             }
         }

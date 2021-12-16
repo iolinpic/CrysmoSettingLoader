@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CrysmoSettingLoader.Models
+﻿namespace CrysmoSettingLoader.Models
 {
     /// <summary>
     /// Data structure used for interpret api loaded data, with some additional utilize methods
