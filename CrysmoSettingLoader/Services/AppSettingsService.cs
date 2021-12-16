@@ -1,10 +1,11 @@
 ﻿using CrysmoSettingLoader.Models;
-using Newtonsoft.Json;
+//using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace CrysmoSettingLoader.Services
 {
@@ -30,14 +31,15 @@ namespace CrysmoSettingLoader.Services
 
         public async Task<LocalSettings> readSettings()
         {
-            using (StreamReader sr = new StreamReader(FILENAME, System.Text.Encoding.UTF8))
+            using (FileStream sr = new FileStream(FILENAME, FileMode.OpenOrCreate))
             {
-                var json = await sr.ReadToEndAsync();
-                sr.Close();
-                LocalSettings settings = null;
+                /*var json = await sr.ReadToEndAsync();
+                sr.Close();*/
+                //LocalSettings settings = null;
                 try
                 {
-                    settings = JsonConvert.DeserializeObject<LocalSettings>(json);
+                    //settings = JsonConvert.DeserializeObject<LocalSettings>(json);
+                    LocalSettings settings = await JsonSerializer.DeserializeAsync<LocalSettings>(sr);
                     if (settings == null)
                     {
                         settings = new LocalSettings();
@@ -52,11 +54,13 @@ namespace CrysmoSettingLoader.Services
         }
         public static async Task writeSettings(LocalSettings localSettings)
         {
-            using (StreamWriter sw = new StreamWriter(FILENAME, false, System.Text.Encoding.UTF8))
+            using (FileStream sw = new FileStream(FILENAME, FileMode.OpenOrCreate))
             {
-                var json = JsonConvert.SerializeObject(localSettings);
-                await sw.WriteLineAsync(json);
-                sw.Close();
+                /*var json = JsonConvert.SerializeObject(localSettings);
+                await sw.WriteLineAsync(json);*/
+                //sw.Close();
+                await JsonSerializer.SerializeAsync<LocalSettings>(sw,localSettings);
+                /*JsonSerializer.Serialize(sw, localSettings,LocalSettings);*/
             }
         }
     }

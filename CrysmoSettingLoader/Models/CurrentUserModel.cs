@@ -1,8 +1,8 @@
 ﻿
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace CrysmoSettingLoader.Models
 {
@@ -11,7 +11,7 @@ namespace CrysmoSettingLoader.Models
     /// </summary>
     public class CurrentUserModel : Model
     {
-        private int id;
+        private string id;
         private string name;
         private string email;
        /* public PermissionModel[] permissions { get; set; }*/
@@ -20,7 +20,7 @@ namespace CrysmoSettingLoader.Models
         {
             name = "";
             email = "";
-            id = 0;
+            id = "";
             /*permissions = new PermissionModel[0];*/
         }
         public void UpdateUser(CurrentUserModel user) {
@@ -30,8 +30,8 @@ namespace CrysmoSettingLoader.Models
             /*permissions = user.permissions;*/
         }
 
-        [JsonProperty("_id")]
-        public int Id
+        [JsonPropertyName("_id")]
+        public string Id
         {
             get { return id; }
             set
@@ -40,7 +40,7 @@ namespace CrysmoSettingLoader.Models
                 OnPropertyChanged("Id");
             }
         }
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name
         {
             get { return name; }
@@ -50,7 +50,7 @@ namespace CrysmoSettingLoader.Models
                 OnPropertyChanged("Name");
             }
         }
-        [JsonProperty("email")]
+        [JsonPropertyName("email")]
         public string Email {
             get { return email; }
             set {

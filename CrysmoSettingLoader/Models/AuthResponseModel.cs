@@ -11,7 +11,5 @@ namespace CrysmoSettingLoader.Models
     {
         public string token { get; set; }
         public CurrentUserModel user { get; set; }
-        /*public string error { get; set; }
-        public string error_description { get; set; }*/
     }
 }

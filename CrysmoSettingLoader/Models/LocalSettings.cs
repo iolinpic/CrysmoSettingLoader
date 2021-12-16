@@ -1,13 +1,14 @@
 ﻿//using DFshareWPF.Services;
-using Newtonsoft.Json;
+//using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Printing;
-using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using CrysmoSettingLoader.Services;
 using System.IO;
 using CrysmoSettingLoader.Static;
+using System.Text.Json.Serialization;
 
 namespace CrysmoSettingLoader.Models
 {
@@ -21,7 +22,7 @@ namespace CrysmoSettingLoader.Models
         private string token;
         private string resultDir;
 
-        [JsonProperty("Categories")]
+        [JsonPropertyName("Categories")]
         public List<Category> Categories { get; set; }
         
         
@@ -34,7 +35,7 @@ namespace CrysmoSettingLoader.Models
             }
         }*/
 
-        [JsonProperty("Server")]
+        [JsonPropertyName("Server")]
         public string Server
         {
             get { return _server; }
@@ -47,7 +48,7 @@ namespace CrysmoSettingLoader.Models
         }
 
 
-        [JsonProperty("ResultDir")]
+        [JsonPropertyName("ResultDir")]
         public string ResultDir
         {
             get { return resultDir; }
@@ -59,7 +60,7 @@ namespace CrysmoSettingLoader.Models
             }
         }
 
-        [JsonProperty("Token")]
+        [JsonPropertyName("Token")]
         public string Token
         {
             get { return token; }
@@ -70,7 +71,7 @@ namespace CrysmoSettingLoader.Models
                 saveChanges();
             }
         }
-        [JsonProperty("Saved")]
+        [JsonPropertyName("Saved")]
         public bool Saved
         {
             get { return saved; }

@@ -22,9 +22,6 @@ namespace CrysmoSettingLoader.Static
             return instance;
         }
         private LocalSettings localSettings;
-  /*      private Field[] eventFields;
-        private Field[] participantFields;
-        private Zone[] zones;*/
 
         public Storage()
         {
@@ -37,29 +34,6 @@ namespace CrysmoSettingLoader.Static
             get; set;
         }
 
-       /* public Field[] EventFields {
-            get { return eventFields; }
-            set
-            {
-                eventFields = value;
-                OnPropertyChanged(nameof(EventFields));
-            }
-        }
-        public Field[] ParticipantFields {
-            get { return participantFields; }
-            set {
-                participantFields = value;
-                OnPropertyChanged(nameof(ParticipantFields));
-            }
-        }
-        public Zone[] Zones { 
-            get { return zones; }
-            set
-            {
-                zones = value;
-                OnPropertyChanged(nameof(Zones));
-            }
-        }*/
         public LocalSettings LocalSettings
         {
             get { return localSettings; }
@@ -67,7 +41,6 @@ namespace CrysmoSettingLoader.Static
             {
                 localSettings = value;
                 OnPropertyChanged(nameof(LocalSettings));
-                //Task.Run(() => AppSettingsService.writeSettings(value));
             }
         }
 

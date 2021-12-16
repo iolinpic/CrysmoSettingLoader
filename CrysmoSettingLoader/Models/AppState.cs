@@ -15,7 +15,6 @@ namespace CrysmoSettingLoader.Models
     {
         private bool _auth;       
         private CurrentUserModel _user;
-        //public ObservableCollection<Setting> Settings { get; set; }
         public CurrentUserModel User { 
             get { return _user; } 
             set {
@@ -27,13 +26,11 @@ namespace CrysmoSettingLoader.Models
         public AppState()
         {
             _user = new CurrentUserModel();
-            //Settings = new ObservableCollection<Setting>();
             Auth = false;
         }
 
         public void resetDefault() {
             User = new CurrentUserModel();
-            //Settings = new ObservableCollection<Setting>();
             Auth = false;
         }
 
@@ -46,18 +43,5 @@ namespace CrysmoSettingLoader.Models
                 OnPropertyChanged("Auth");
             }
         }
-        
-        /*public void getSettings(Setting[] settings)
-        {
-            //var settings = HttpService.GetSettings();
-            if (settings != null)
-            {
-                Settings.Clear();
-                foreach (var setting in settings)
-                {
-                    Settings.Add(setting);
-                }
-            }
-        }*/
     }
 }

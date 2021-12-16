@@ -28,8 +28,6 @@ namespace CrysmoSettingLoader.ViewModels
         public ObservableCollection<MainMenuItem> MenuItems { get; set; }
         private List<MainMenuItem> menuItems;
         private SnackbarMessageQueue messageQueue;
-/*        private DateTime dateTime;
-        public DispatcherTimer Timer;*/
 
         public AppState state {
             get {
@@ -54,10 +52,6 @@ namespace CrysmoSettingLoader.ViewModels
                 new MainMenuItem { Title = "Панель выгрузки", Address = "CrysmoSettingLoader.Views.DashboardView" },
 
             };
-           /* Timer = new DispatcherTimer();
-            Timer.Tick += new EventHandler(timerTick);
-            Timer.Interval = new TimeSpan(0, 0, 0, 10);
-            dateTime = DateTime.Now;*/
         }
 
 
@@ -79,77 +73,15 @@ namespace CrysmoSettingLoader.ViewModels
         public RelayCommand LogoutCommand
         {
             get { return logoutCommand ??= new RelayCommand(obj=> {
-                /*var host = obj as DrawerHost;
-                if (host != null) {
-                    host.IsLeftDrawerOpen = false;
-                }*/
+
                 WindowTitle = "";
                 SelectedMenuItem = null;
                 MenuItems.Clear();
                 state.resetDefault();
-                /*refreshTimerStop();*/
                 Storage.getInstance().LocalSettings.Token = "";
                 Switcher.Switch(new LoginVeiw());
             }); }
         }
-
-
-        
-
-        /*private async void timerTick(object sender, EventArgs e)
-        {
-            await UpdateRequest();
-        }
-        private void refreshTimerStart()
-        {
-            if (!Timer.IsEnabled)
-            {
-                dateTime = DateTime.Now;
-                Timer.Start();
-            }
-        }
-        private void refreshTimerStop()
-        {
-            if (Timer.IsEnabled)
-            {
-                Timer.Stop();
-            }
-        }
-
-        private async Task UpdateRequest()
-        {
-            UpdateMessage[] msgs = HttpService.CheckMessageList(dateTime);
-            if (msgs != null) {
-                dateTime = DateTime.Now;
-                foreach (var msg in msgs) {
-                    if (msg.Message == "permission")
-                    {
-                        updateUser(await HttpService.getCurrentUser());
-                    }
-                    if (msg.Message == "pfield")
-                    {
-                        Storage.getInstance().ParticipantFields = await HttpService.GetParticipantFieldsAsync();
-                    }
-                    if (msg.Message == "efield")
-                    {
-                        Storage.getInstance().EventFields = await HttpService.GetEventFieldsAsync();
-                    }
-                    if (msg.Message == "zone")
-                    {
-                        Storage.getInstance().Zones = await HttpService.GetZonesAsync();
-                    }
-                    if (msg.Message == "device")
-                    {
-                        Switcher.UpdateDeviceList();
-                    }
-                    if (msg.Message == "settings")
-                    {
-                        state.getSettings(await HttpService.GetSettingsAsync());
-                    }
-                }
-            }
-            
-        }*/
 
         public MainMenuItem SelectedMenuItem
         {

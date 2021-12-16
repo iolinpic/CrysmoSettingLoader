@@ -44,45 +44,9 @@ namespace CrysmoSettingLoader.Static
         public static void Authentificate()
         {
             state.Auth = true;
-            //state.User.UpdateUser(user);
-            //state.getSettings();
             HttpService.setToken(Storage.getInstance().LocalSettings.Token);
             pageSwitcher.ShowMenu();
         }
-        /*public static void UpdateDeviceList()
-        {
-            var page = pageSwitcher.App.Content as DeviceView;
-            if(page!= null)
-            {
-                var context = page.DataContext as DeviceViewModel;
-               
-                context.setDevices(HttpService.GetDevices());
-                if (context.EditingDevice != null)
-                {
-                    var id = context.EditingDevice.Id;
-                    foreach (var device in context.Devices)
-                    {
-                        if (device.Id == id)
-                        {
-                            context.SelectedDevice = device;
-                            break;
-                        }
-                    }
-                }
-            }
-        }*/
-
-        /*public static bool UserCan(string permission)
-        {
-            foreach(var perm in state.User.permissions)
-            {
-                if(perm.name== permission)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }*/
 
         public static void addNotification(string message) {
             pageSwitcher.createNotification(message);

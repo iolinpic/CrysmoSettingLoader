@@ -27,8 +27,6 @@ namespace CrysmoSettingLoader.Static
         private const string AUTH = @"/api/auth/login";
         private const string CURRENTUSER = @"/api/auth/user";
         public static string serverPath;
-        //private static HttpSettings settings;
-        //private static AuthResponseModel authData;
 
         static HttpService() {
             var handler = new HttpClientHandler();
@@ -53,7 +51,7 @@ namespace CrysmoSettingLoader.Static
         public static async Task<AuthResponseModel> login(LoginModel model)
         {
             try {
-                var resp = await HttpClient.PostAsJsonAsync<LoginModel>(pathGenerator(AUTH), model);
+                var resp = await HttpClient.PostAsJsonAsync(pathGenerator(AUTH), model);
                 resp.EnsureSuccessStatusCode();
                 var authData = await resp.Content.ReadFromJsonAsync<AuthResponseModel>();
                 if (authData != null)
