@@ -9,12 +9,10 @@
         Title="CSLoaderAva"
 		TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
-		ExtendClientAreaToDecorationsHint="True"
-		>
-
-    <Design.DataContext>
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
+		ExtendClientAreaToDecorationsHint="True">
+	<Design.DataContext>
+		<vm:MainWindowViewModel />
+	</Design.DataContext>
 
 	<Panel>
 		<ExperimentalAcrylicBorder IsHitTestVisible="False">
@@ -26,8 +24,16 @@
 					MaterialOpacity="0.65" />
 			</ExperimentalAcrylicBorder.Material>
 		</ExperimentalAcrylicBorder>
-		<TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="200"></ColumnDefinition>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="30"></RowDefinition>
+				<RowDefinition Height="*"></RowDefinition>
+			</Grid.RowDefinitions>
+			<ContentPresenter Content="{Binding Content}" Grid.Column="1" Grid.Row="1"></ContentPresenter>
+		</Grid>
 	</Panel>
-    
-
 </Window>
