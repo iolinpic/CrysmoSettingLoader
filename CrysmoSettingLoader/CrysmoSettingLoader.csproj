@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
     <PackageReference Include="PropertyTools.Wpf" Version="3.1.0" />
+    <PackageReference Include="ReactiveUI.WPF" Version="17.1.9" />
   </ItemGroup>
 
 </Project>

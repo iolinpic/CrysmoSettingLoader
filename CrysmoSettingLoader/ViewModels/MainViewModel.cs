@@ -3,6 +3,7 @@ using CrysmoSettingLoader.Models;
 using CrysmoSettingLoader.Static;
 using CrysmoSettingLoader.Views;
 using MaterialDesignThemes.Wpf;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,7 +14,7 @@ namespace CrysmoSettingLoader.ViewModels
     /// <summary>
     /// View model for MainView, sets up all singleton classes and initialize settings
     /// </summary>
-    internal class MainViewModel : ViewModel
+    internal class MainViewModel : ReactiveObject
     {
         private MainMenuItem selectedMenuItem;
         private RelayCommand switchScreenCommand;
@@ -34,11 +35,7 @@ namespace CrysmoSettingLoader.ViewModels
         public string WindowTitle
         {
             get { return _windowTitle; }
-            set
-            {
-                _windowTitle = value;
-                OnPropertyChanged(nameof(WindowTitle));
-            }
+            set => this.RaiseAndSetIfChanged(ref _windowTitle, value);
         }
 
         public MainViewModel()
@@ -48,6 +45,7 @@ namespace CrysmoSettingLoader.ViewModels
             menuItems = new List<MainMenuItem>{
                 new MainMenuItem { Title = "Панель выгрузки", Address = "CrysmoSettingLoader.Views.DashboardView" },
             };
+            this.WhenAnyValue(x => x.SelectedMenuItem).Subscribe(x => SwitchScreenCommand.Execute(x));
         }
 
         public bool isAuthentificate
@@ -61,11 +59,7 @@ namespace CrysmoSettingLoader.ViewModels
         public SnackbarMessageQueue MessageQueue
         {
             get { return messageQueue ?? (messageQueue = new SnackbarMessageQueue()); }
-            set
-            {
-                messageQueue = value;
-                OnPropertyChanged(nameof(MessageQueue));
-            }
+            set => this.RaiseAndSetIfChanged(ref messageQueue, value);
         }
 
         public RelayCommand LogoutCommand
@@ -87,12 +81,13 @@ namespace CrysmoSettingLoader.ViewModels
         public MainMenuItem SelectedMenuItem
         {
             get { return selectedMenuItem; }
-            set
+            set => this.RaiseAndSetIfChanged(ref selectedMenuItem, value);
+            /*set
             {
                 selectedMenuItem = value;
                 OnPropertyChanged("SelectedMenuItem");
                 SwitchScreenCommand.Execute(value);
-            }
+            }*/
         }
 
         public RelayCommand SwitchScreenCommand

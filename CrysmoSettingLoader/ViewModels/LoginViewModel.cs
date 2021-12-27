@@ -15,7 +15,6 @@ namespace CrysmoSettingLoader.ViewModels
 
         private string message;
         private RelayCommand loginCommand;
-        //private RelayCommand settingsCommand;
 
         public LoginViewModel()
         {
@@ -73,7 +72,6 @@ namespace CrysmoSettingLoader.ViewModels
                     {
                         Message = "Выполняеться проверка";
                         IsLoggingIn = true;
-                        //var res = await HttpService.auth(Login, pbox.Password);
                         var res = await HttpService.login(new LoginModel { email = Login, password = pbox.Password });
                         if (res != null)
                         {
@@ -83,13 +81,6 @@ namespace CrysmoSettingLoader.ViewModels
                             {
                                 Storage.getInstance().LocalSettings.Token = res.token;
                             }
-                            /*Message = "Получаем Настройки приложения";
-                            //Switcher.state.getSettings(await HttpService.GetSettingsAsync());
-                            Message = "Получаем данные карточек";
-                            Storage.getInstance().EventFields = await HttpService.GetEventFieldsAsync();
-                            Storage.getInstance().ParticipantFields = await HttpService.GetParticipantFieldsAsync();
-                            Storage.getInstance().Zones = await HttpService.GetZonesAsync();*/
-                            //HttpService.getCurrentUser()
                             Switcher.Switch(new DashboardView());
                         }
                         else
@@ -102,22 +93,5 @@ namespace CrysmoSettingLoader.ViewModels
                 });
             }
         }
-
-        /*public RelayCommand SettingsCommand {
-            get
-            {
-                return settingsCommand ??= new RelayCommand((obj)=> {
-                    SettingsWindow settingsWindow = new SettingsWindow
-                    {
-                        Owner = Switcher.pageSwitcher
-                    };
-                    if (settingsWindow.ShowDialog() == true)
-                    {
-                        Switcher.LocalSettings.Server = settingsWindow.Server;
-                        HttpService.UpdateBase(Storage.getInstance().LocalSettings.Server);
-                    }
-                });
-            }
-        }*/
     }
 }
